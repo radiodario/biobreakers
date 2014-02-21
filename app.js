@@ -12490,6 +12490,11 @@ module.exports = function () {
       this.context.font = "12px Arial";
       this.context.textAlign = "center";
       this.context.fillStyle = 'yellow';
+      this.context.strokeStyle = 'yellow';
+      this.context.strokeRect((this.canvas.width/2) - 50, (this.canvas.height/2) - 50, 100, 20);
+      this.context.fillRect((this.canvas.width/2) - 50, (this.canvas.height/2) - 50, pct, 20);
+
+
 
       var str = 'Loading ' + Math.ceil(pct) + '%'
       this.context.fillText(str, this.canvas.width /2, this.canvas.height/2)
@@ -12503,7 +12508,10 @@ module.exports = function () {
       this.context.font = "12px Arial";
       this.context.textAlign = "center";
       this.context.fillStyle = 'yellow';
+      var str2 = 'WASD or Arrow keys to move, space to fire.';
+
       var str = 'Press Space to Start';
+      this.context.fillText(str2, this.canvas.width /2, (this.canvas.height/2) - 50);
       this.context.fillText(str, this.canvas.width /2, this.canvas.height/2);
 
 
