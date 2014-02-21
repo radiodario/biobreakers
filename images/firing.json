@@ -1,0 +1,84 @@
+{"frames": [
+
+{
+	"filename": "big_gun.png",
+	"frame": {"x":2,"y":2,"w":68,"h":29},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":0,"w":68,"h":29},
+	"sourceSize": {"w":80,"h":31}
+},
+{
+	"filename": "enemy_01.png",
+	"frame": {"x":54,"y":33,"w":24,"h":24},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":24,"h":24},
+	"sourceSize": {"w":26,"h":26}
+},
+{
+	"filename": "enemy_02.png",
+	"frame": {"x":72,"y":2,"w":22,"h":22},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":22,"h":22},
+	"sourceSize": {"w":26,"h":26}
+},
+{
+	"filename": "enemy_03.png",
+	"frame": {"x":28,"y":33,"w":24,"h":26},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":24,"h":26},
+	"sourceSize": {"w":26,"h":26}
+},
+{
+	"filename": "enemy_04.png",
+	"frame": {"x":2,"y":33,"w":24,"h":26},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":0,"w":24,"h":26},
+	"sourceSize": {"w":26,"h":26}
+},
+{
+	"filename": "fire_01.png",
+	"frame": {"x":99,"y":40,"w":17,"h":17},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":1,"w":17,"h":17},
+	"sourceSize": {"w":21,"h":21}
+},
+{
+	"filename": "fire_02.png",
+	"frame": {"x":80,"y":40,"w":17,"h":17},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":1,"w":17,"h":17},
+	"sourceSize": {"w":21,"h":21}
+},
+{
+	"filename": "fire_03.png",
+	"frame": {"x":96,"y":21,"w":17,"h":17},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":1,"w":17,"h":17},
+	"sourceSize": {"w":21,"h":21}
+},
+{
+	"filename": "fire_04.png",
+	"frame": {"x":96,"y":2,"w":17,"h":17},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":1,"w":17,"h":17},
+	"sourceSize": {"w":21,"h":21}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker ",
+	"version": "1.0",
+	"image": "firing.png",
+	"format": "RGBA8888",
+	"size": {"w":128,"h":64},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:fabf281fc6d25705ad6e2918e9d2bc15:1/1$"
+}
+}
