@@ -10932,7 +10932,7 @@ exports.b2World = Box2D.Dynamics.b2World;
 },{}],3:[function(require,module,exports){
 module.exports = function(game) {
 
-  var counter = 0;
+  var counter = Math.random() * 10;
 
   var particleCounter = 0;
 
