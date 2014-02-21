@@ -221,6 +221,8 @@ module.exports = function(game) {
       var hitBody = otherBody.GetUserData();
       if (hitBody.ent.owner === this.id) return false
 
+      if (hitBody.id == 'wall') return false
+
       this.currentSpriteName = 'robotnik_stand_right_hurt.png';
       game.sound.play('sounds/hitsound.ogg', false, 0.05);
 

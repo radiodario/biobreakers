@@ -66,7 +66,7 @@ module.exports = function() {
       this.canvas = canvas;
       this.context = canvas.getContext('2d');
       this.input.setup(canvas);
-      this.physics.setup();
+      this.physics.setup(canvas);
       this.sound.setup(sounds);
       this.render.setup(canvas, assets);
       this.bulletHell.setup(canvas, this);

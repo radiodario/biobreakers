@@ -26,17 +26,54 @@ module.exports = function() {
 
     PHYSICS_SCALING_FACTOR : 0.1,
 
-    setup: function(gravity, sleep) {
+    setup: function(canvas) {
 
       // check defaultos
-      if (!gravity) {
-        gravity = new Vec2(0, 0)
-      }
+      var gravity = new Vec2(0, 0)
+      
 
-      sleep = sleep || false
+      var sleep = false
+
+
 
       this.world = new World(gravity, sleep)
 
+
+      // add the walls
+
+      this.addBody({
+        x: canvas.width/2,
+        y: canvas.height + 10,
+        halfHeight: 10,
+        halfWidth: canvas.width / 2,
+        type: 'static',
+        userData : {
+          id: 'wall',
+          ent: {
+            onTouch: function() {
+              
+            }
+          }
+        }
+      });
+
+      this.addBody({
+        x: canvas.width/2,
+        y: -1,
+        halfHeight: 10,
+        halfWidth: canvas.width /2,
+        type: 'static',
+        userData : {
+          id: 'wall',
+          ent: {
+            onTouch: function() {
+
+            }
+          }
+        }
+      });
+
+      
       this.debugDraw = new DebugDraw()
       this.debugDraw.SetSprite(document.getElementsByTagName("canvas")[0].getContext('2d'));
       this.debugDraw.SetDrawScale(1/this.PHYSICS_SCALING_FACTOR);
@@ -59,7 +96,7 @@ module.exports = function() {
 
         // clear the forces on the world
         // we might want to turn this off sometimes?
-        // this.world.DrawDebugData();
+        this.world.DrawDebugData();
         this.world.ClearForces();
 
       }
