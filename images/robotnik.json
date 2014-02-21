@@ -1,0 +1,124 @@
+{"frames": [
+
+{
+	"filename": "robotnik_16.png",
+	"frame": {"x":380,"y":137,"w":130,"h":133},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":10,"w":130,"h":133},
+	"sourceSize": {"w":132,"h":155}
+},
+{
+	"filename": "robotnik_18.png",
+	"frame": {"x":2,"y":553,"w":129,"h":133},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":11,"w":129,"h":133},
+	"sourceSize": {"w":133,"h":155}
+},
+{
+	"filename": "robotnik_21.png",
+	"frame": {"x":161,"y":540,"w":129,"h":139},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":0,"w":129,"h":139},
+	"sourceSize": {"w":133,"h":143}
+},
+{
+	"filename": "robotnik_stand_left.png",
+	"frame": {"x":2,"y":148,"w":187,"h":131},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":8,"w":187,"h":131},
+	"sourceSize": {"w":187,"h":155}
+},
+{
+	"filename": "robotnik_stand_right.png",
+	"frame": {"x":191,"y":135,"w":187,"h":131},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":8,"w":187,"h":131},
+	"sourceSize": {"w":187,"h":155}
+},
+{
+	"filename": "robotnik_stand_right_hurt.png",
+	"frame": {"x":191,"y":2,"w":187,"h":131},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":8,"w":187,"h":131},
+	"sourceSize": {"w":187,"h":155}
+},
+{
+	"filename": "robotnik_surpise_l.png",
+	"frame": {"x":2,"y":2,"w":187,"h":144},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":2,"w":187,"h":144},
+	"sourceSize": {"w":193,"h":148}
+},
+{
+	"filename": "robotnik_turn_01.png",
+	"frame": {"x":2,"y":281,"w":172,"h":133},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":17,"w":172,"h":133},
+	"sourceSize": {"w":184,"h":163}
+},
+{
+	"filename": "robotnik_turn_02.png",
+	"frame": {"x":2,"y":416,"w":157,"h":135},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":10,"w":157,"h":135},
+	"sourceSize": {"w":169,"h":163}
+},
+{
+	"filename": "robotnik_turn_03.png",
+	"frame": {"x":335,"y":409,"w":135,"h":135},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":8,"w":135,"h":135},
+	"sourceSize": {"w":141,"h":163}
+},
+{
+	"filename": "robotnik_turn_04.png",
+	"frame": {"x":380,"y":2,"w":130,"h":133},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":11,"w":130,"h":133},
+	"sourceSize": {"w":132,"h":155}
+},
+{
+	"filename": "robotnik_turn_05.png",
+	"frame": {"x":365,"y":272,"w":135,"h":135},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":6,"y":8,"w":135,"h":135},
+	"sourceSize": {"w":141,"h":163}
+},
+{
+	"filename": "robotnik_turn_06.png",
+	"frame": {"x":176,"y":403,"w":157,"h":135},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":10,"w":157,"h":135},
+	"sourceSize": {"w":169,"h":163}
+},
+{
+	"filename": "robotnik_turn_07.png",
+	"frame": {"x":191,"y":268,"w":172,"h":133},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":17,"w":172,"h":133},
+	"sourceSize": {"w":184,"h":163}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker ",
+	"version": "1.0",
+	"image": "robotnik.png",
+	"format": "RGBA8888",
+	"size": {"w":512,"h":1024},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:912909b23f7ac32b283850bd665bbd4b:1/1$"
+}
+}
