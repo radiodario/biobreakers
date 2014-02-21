@@ -20,6 +20,13 @@ module.exports = function() {
       this.bind(83, 'move-down');  // S
       this.bind(68, 'move-right'); // D
       
+      this.bind(38, 'move-up');    // W
+      this.bind(37, 'move-left');  // A
+      this.bind(40, 'move-down');  // S
+      this.bind(39, 'move-right'); // D
+      
+
+
       this.bind(32, 'start');       // SPACE
 
       
