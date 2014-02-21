@@ -1,6 +1,6 @@
 module.exports = function(game) {
 
-  var counter = 0;
+  var counter = Math.random() * 10;
 
   var particleCounter = 0;
 
