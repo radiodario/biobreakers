@@ -1,6 +1,8 @@
 # biobreakers
 > A bio breakers super crazy game
 
+try it out [here](http://radiodario.github.io/biobreakers)
+
 Uses Box2D
 uses textures from 
 http://www.deviantart.com/art/lunna-the-cat-sprite-sheet-273293117
