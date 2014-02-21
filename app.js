@@ -11857,6 +11857,18 @@ module.exports = function() {
     },
 
     setup: function(canvas) {
+      var that = this;
+
+      document.getElementById('sound').addEventListener('click', function(e) {
+        if (that.music) {
+          that.music = false
+          e.currentTarget.innerHTML = 'Sound OFF'
+        } else {
+          that.music = true
+          e.currentTarget.innerHTML = 'Sound ON'
+        }
+        that.sound.togglemute();
+      })
 
       this.canvas = canvas;
       this.context = canvas.getContext('2d');
