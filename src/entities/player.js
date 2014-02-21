@@ -20,7 +20,7 @@ module.exports = function(game) {
     score: 0,
 
     nextFireTime : 0,
-    fireDelay : 50,
+    fireDelay : 150,
 
     currentSpriteName: 'robotnik_stand_right.png',
 
@@ -124,29 +124,60 @@ module.exports = function(game) {
         return
       }
       else {
-        game.sound.play('/sounds/robotnik_laser.ogg', false, 0.2);
+        game.sound.play('sounds/robotnik_laser.ogg', false, 0.2);
 
 
         var mode = game.bulletHell.mode()
 
-        if (mode >= 2) {
-          this.fireDelay = 100;
+        if (mode > 0) {
+          this.fireDelay = 25*mode;
         }
         
+        // shoot the first bullet
+        if (mode == 0 || mode > 2) {
+          var bullet = game.spawnEntity('bullet')
+          bullet.init(
+            this.pos.x + ( this.size.w * 0.5 ) + 20, 
+            this.pos.y, 
+            {
+            owner : "player_" + this.guid,
+            dir : {
+              x: 1,
+              y: 0
+            }
+          });
+        }
 
-        var bullet = game.spawnEntity('bullet')
-        bullet.init(
-          this.pos.x + ( this.size.w * 0.5 ) + 20, 
-          this.pos.y, 
-          {
-          owner : "player_" + this.guid,
-          dir : {
-            x: 1,
-            y: 0
-          }
-        });
+
+        // shoot two bullets
+        if (mode == 1 || mode == 2) {
+          var bullet = game.spawnEntity('bullet')
+          bullet.init(
+              this.pos.x + ( this.size.w * 0.5 ) + 20, 
+              this.pos.y - 12.5, 
+            {
+            owner : "player_" + this.guid,
+            dir : {
+              x: 1,
+              y: -0.05
+            }
+          });
+
+          bullet = game.spawnEntity('bullet')
+          bullet.init(
+              this.pos.x + ( this.size.w * 0.5 ) + 20, 
+              this.pos.y + 12.5, 
+            {
+            owner : "player_" + this.guid,
+            dir : {
+              x: 1,
+              y: 0.05
+            }
+          });
+        }
+
         
-        if (mode >= 2) {
+        if (mode > 2) {
           var bullet = game.spawnEntity('bullet')
           bullet.init(
               this.pos.x + ( this.size.w * 0.5 ) + 20, 
@@ -191,7 +222,7 @@ module.exports = function(game) {
       if (hitBody.ent.owner === this.id) return false
 
       this.currentSpriteName = 'robotnik_stand_right_hurt.png';
-      game.sound.play('/sounds/hitsound.ogg', false, 0.1);
+      game.sound.play('sounds/hitsound.ogg', false, 0.05);
 
     }
 

@@ -13,10 +13,10 @@ var assets = [
 
 var sounds = [
 
-  '/sounds/eggman_acid.ogg',
-  '/sounds/robotnik_laser.ogg',
-  '/sounds/you_died.ogg',
-  '/sounds/hitsound.ogg'
+  'sounds/eggman_acid.ogg',
+  'sounds/robotnik_laser.ogg',
+  'sounds/you_died.ogg',
+  'sounds/hitsound.ogg'
 
 ]
 
@@ -33,7 +33,7 @@ module.exports = function() {
     bulletHell : bulletHell(),
 
     loading: true,
-    music: false,
+    music: true,
 
     entities: [],
     _deadEntities : [],
@@ -94,7 +94,7 @@ module.exports = function() {
       this.player.init(200, this.canvas.height/2, {});
 
       if (!this.musicPlaying && this.music) {
-        this.sound.play('/sounds/eggman_acid.ogg', true, 0.5);
+        this.sound.play('sounds/eggman_acid.ogg', true, 0.2);
       }
       this.input.bind(32, 'fire'); // rebind to fire
 
@@ -209,7 +209,7 @@ module.exports = function() {
         if (!this.soundStopped) {
           this.sound.stopAll()
           this.soundStopped = true
-          this.sound.play('/sounds/you_died.ogg', false, 0.4);
+          this.sound.play('sounds/you_died.ogg', false, 0.4);
         }
         
         if (this.input.actions['restart']) {          
