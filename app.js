@@ -10944,6 +10944,7 @@ module.exports = function(game) {
   var increase = Math.PI / 50;
   var freq = 50
   var timePlayed = 0;
+  var intervalTime = 0;
 
   var enemyIntervalMin = 30
 
@@ -10966,6 +10967,7 @@ module.exports = function(game) {
       this.width = canvas.width;
       this.game = game;
       this.debug = document.getElementsByTagName('p')[0]
+
     },
 
     mode: function(_) {
@@ -10979,6 +10981,7 @@ module.exports = function(game) {
 
       this.stepMargins();
 
+      timePlayed++;
       
       
       counter += freqIncrease;
@@ -10988,39 +10991,45 @@ module.exports = function(game) {
 
       if (nextEnemy <= timestamp) {
 
-        if (timePlayed < 290 ) {
-          mode = 0
-        } else if (timePlayed < 950) {
-          mode = 1
-        } else if (timePlayed < 2000) {
-          mode = 2
-        } else if (timePlayed < 3000) {
-          mode = 3
-        } else if (timePlayed < 4000) {
-          mode = 4
-        }
-        
+       
+        mode = Math.min(Math.floor(timePlayed / 1000), 7);
 
         var yPos = this.calculateY();
 
-        
         this.debug.innerHTML = 'freqInc: ' + freqIncrease +
            '<br>apertureFactor: ' + apertureFactor +
            '<br>counter: ' + counter +
            '<br>enemyInterval: ' + enemyInterval +
            '<br>mode: ' + mode +
-           '<br>timePlayed: ' + timePlayed
+           '<br>timePlayed: ' + timePlayed +
+           '<br>entities:' + this.game.entities.length
 
-        this.spawnEnemy(xPos, yPos)
+        var dir = this.calculateDir();
+
+        if (mode == 7) {
+          this.spawnEnemy(xPos, (this.height - yPos/3) % this.height, dir)
+          this.spawnEnemy(xPos, (this.height - yPos/2) % this.height, dir)
+          this.spawnEnemy(xPos, (this.height - yPos) % this.height, dir)
+          this.spawnEnemy(xPos, yPos, dir)
+          var dir2 = { x: dir.x, y : -dir.y}
+          this.spawnEnemy(xPos, (this.height + yPos) % this.height, dir2)
+          this.spawnEnemy(xPos, (this.height + yPos/2) % this.height, dir2)
+          this.spawnEnemy(xPos, (this.height + yPos/3) % this.height, dir2)
+        } else if (mode == 6) {
+          this.spawnEnemy(xPos, (this.height - yPos) % this.height, dir)
+          this.spawnEnemy(xPos, (this.height - yPos/2) % this.height, dir)
+          this.spawnEnemy(xPos, yPos, dir)
+          this.spawnEnemy(xPos, (this.height + yPos) % this.height, dir)
+          this.spawnEnemy(xPos, (this.height + yPos/2) % this.height, dir)
+        } else if (mode == 5) {
+          this.spawnEnemy(xPos, (this.height - yPos) % this.height, dir)
+          this.spawnEnemy(xPos, yPos, dir)
+          this.spawnEnemy(xPos, (this.height + yPos) % this.height, dir)
+        } else {
+          this.spawnEnemy(xPos, yPos, dir)
+        }
         nextEnemy = timestamp + enemyInterval;
-        timePlayed++;
-        
-        enemyInterval = enemyIntervalMin + (initialInterval * Math.exp(decayRate * timePlayed))
-        
-          
-        
-
-        // console.log(enemyInterval, timePlayed);
+        enemyInterval = enemyIntervalMin + (initialInterval * Math.exp(decayRate * intervalTime++))
 
       } 
 
@@ -11046,7 +11055,7 @@ module.exports = function(game) {
           apertureFactor = 2 + (aperture * Math.exp(apertureDecayRate * timePlayed))
           return (this.height/2) + Math.cos(counter) * (this.height/apertureFactor);
         case 1: 
-          enemyIntervalMin = 40
+          enemyIntervalMin = 40;
           freqIncrease = Math.PI / 40;
           apertureFactor = 2 + (Math.log(timePlayed))
           return (this.height/2) + (Math.cos(counter) * this.height/2) + (Math.sin(counter) * (this.height/apertureFactor));
@@ -11056,17 +11065,32 @@ module.exports = function(game) {
           apertureFactor = 2 + (Math.log(timePlayed))
           return  (this.height/2) + (Math.sin(counter) * this.height/2) + (Math.sin(counter) * (this.height/apertureFactor));
         case 3: 
-          enemyIntervalMin = 20
+          enemyIntervalMin = 20;
           freqIncrease = Math.PI / 500;
           increase = Math.PI / 50;
-          apertureFactor = 8 * Math.random()
-          return (this.height/2)  + (Math.sin(counter) * this.height/2)
+          apertureFactor = 8 * Math.random();
+          return (this.height/2)  + (Math.sin(counter) * this.height/2);
         case 4: 
-          enemyIntervalMin = 20
+          enemyIntervalMin = 20;
           freqIncrease = Math.PI / 400;
           increase = Math.PI / 10;
-          return (this.height/2)  + (Math.cos(counter) * this.height/2)
-          // return  Math.random() * (100) - (Math.tan(counter) * this.height/2) + (Math.sin(counter) * (this.height/apertureFactor));
+          return (this.height/2)  + (Math.cos(counter) * this.height/2);
+        case 5:
+          enemyIntervalMin = 10;
+          freqIncrease = 1;
+          increase = Math.PI / 5;
+          return Math.abs((counter % (this.height*2)) - this.height)
+        case 6:
+          enemyIntervalMin = 5;
+          freqIncrease = 3;
+          increase = Math.PI/ 10 ;
+          return Math.abs((counter % (this.height*2)) - this.height)        
+        case 7:
+          enemyIntervalMin = 25;
+          freqIncrease = 1;
+          increase = Math.PI/ 50 ;
+          return Math.abs((counter % (this.height*2)) - this.height)
+
       }
 
 
@@ -11078,7 +11102,7 @@ module.exports = function(game) {
 
       switch (mode) {
         case 0:
-          return {x: -1, y: 0}
+          return {x: -1, y: 0 }
         case 1: 
           return {x: -1.1, y: 0}
         case 2:
@@ -11086,18 +11110,24 @@ module.exports = function(game) {
         case 3:
           return {x: -1.2, y: (Math.cos(particleCounter))}        
         case 4:
-          return {x: -2, y: (Math.sin(particleCounter))}
+          return {x: -2,  y: (Math.sin(particleCounter))}
+        case 5:
+          return {x: -1.2, y: (Math.sin(particleCounter))}
+        case 6:
+          return {x: -1.2, y: (Math.cos(particleCounter))}
+        default:
+          return {x: -1, y: (Math.cos(particleCounter))}
 
       }
 
     },
 
 
-    spawnEnemy : function (xPos, yPos) {
+    spawnEnemy : function (xPos, yPos, dir) {
 
       var enemy = this.game.spawnEntity('enemy');
       enemy.init(xPos, yPos , {
-          dir : this.calculateDir()
+          dir : dir
       })
 
     }
@@ -11148,6 +11178,7 @@ module.exports = function(game) {
 
       
       var entityDef = {
+        entType: 'bullet',
         id : this.id,
         x : this.pos.x,
         y : this.pos.y,
@@ -11278,6 +11309,7 @@ module.exports = function(game) {
       this.id = 'enemy_' + this.guid;
 
       var entityDef = {
+        entType: 'enemy',
         id: this.id,
         x: this.pos.x,
         y: this.pos.y,
@@ -11315,7 +11347,15 @@ module.exports = function(game) {
 
       this.parent();
 
-      if (this.pos.x < -200) {
+      if (this.pos.x < -20) {
+        this.kill(true)
+      }
+
+      if (this.pos.y < -20) {
+        this.kill(true)
+      }
+
+      if (this.pos.y > game.canvas.height + 20) {
         this.kill(true)
       }
 
@@ -11554,6 +11594,7 @@ module.exports = function(game) {
       this.dir = settings.dir || new Vec2(0,0)
 
       var entityDef =  {
+        entType: 'player',
         id : this.id,
         x : this.pos.x,
         y : this.pos.y,
@@ -11651,7 +11692,7 @@ module.exports = function(game) {
         var mode = game.bulletHell.mode()
 
         if (mode > 0) {
-          this.fireDelay = 25*mode;
+          this.fireDelay = 200/mode;
         }
         
         // shoot the first bullet
@@ -11675,53 +11716,106 @@ module.exports = function(game) {
           var bullet = game.spawnEntity('bullet')
           bullet.init(
               this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y - 12.5, 
+              this.pos.y, 
             {
             owner : "player_" + this.guid,
             dir : {
               x: 1,
-              y: -0.05
+              y: -0.15
             }
           });
 
           bullet = game.spawnEntity('bullet')
           bullet.init(
               this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y + 12.5, 
+              this.pos.y, 
             {
             owner : "player_" + this.guid,
             dir : {
               x: 1,
-              y: 0.05
+              y: 0.15
             }
           });
         }
 
         
-        if (mode > 2) {
+        if (mode > 2 && mode < 6) {
           var bullet = game.spawnEntity('bullet')
           bullet.init(
               this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y - 25, 
+              this.pos.y, 
             {
             owner : "player_" + this.guid,
             dir : {
               x: 1,
-              y: -0.05
+              y: -0.25
             }
           });
 
           bullet = game.spawnEntity('bullet')
           bullet.init(
               this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y + 25, 
+              this.pos.y, 
             {
             owner : "player_" + this.guid,
             dir : {
               x: 1,
-              y: 0.05
+              y: 0.25
             }
           });
+        }
+
+        if  (mode >= 6) {
+          var bullet = game.spawnEntity('bullet')
+          bullet.init(
+              this.pos.x + ( this.size.w * 0.5 ) + 20, 
+              this.pos.y, 
+            {
+            owner : "player_" + this.guid,
+            dir : {
+              x: 2,
+              y: -0.45
+            }
+          });          
+
+          var bullet = game.spawnEntity('bullet')
+          bullet.init(
+              this.pos.x + ( this.size.w * 0.5 ) + 20, 
+              this.pos.y, 
+            {
+            owner : "player_" + this.guid,
+            dir : {
+              x: 2,
+              y: -0.25
+            }
+          });
+
+          bullet = game.spawnEntity('bullet')
+          bullet.init(
+              this.pos.x + ( this.size.w * 0.5 ) + 20, 
+              this.pos.y, 
+            {
+            owner : "player_" + this.guid,
+            dir : {
+              x: 2,
+              y: 0.25
+            }
+          });
+
+          bullet = game.spawnEntity('bullet')
+          bullet.init(
+              this.pos.x + ( this.size.w * 0.5 ) + 20, 
+              this.pos.y, 
+            {
+            owner : "player_" + this.guid,
+            dir : {
+              x: 2,
+              y: 0.45
+            }
+          });
+
+
+
         }
 
         this.nextFireTime = new Date().getTime() + this.fireDelay
@@ -11840,9 +11934,10 @@ module.exports = function() {
     sound : soundEngine(),
 
     bulletHell : bulletHell(),
-
     loading: true,
     music: true,
+
+    timePlayed : 0,
 
     entities: [],
     _deadEntities : [],
@@ -11909,6 +12004,7 @@ module.exports = function() {
     startGame : function() {
       this.start = true;
       this.soundStopped = false;
+      this.timePlayed = 0;
       // create our player
       this.player = this.spawnEntity('player')
 
@@ -12038,6 +12134,8 @@ module.exports = function() {
         }
 
       } else {
+
+        this.timePlayed++;
 
         this.bulletHell.step(timestep);
 
@@ -12206,6 +12304,13 @@ DebugDraw = Box2D.Dynamics.b2DebugDraw;
 RevoluteJointDef = Box2D.Dynamics.Joints.b2RevoluteJointDef;
 
 
+var categories = {
+  player: 0x0002,
+  enemy : 0x0004,
+  bullet : 0x0008,
+  wall : 0x0010
+};
+
 
 module.exports = function() {
 
@@ -12233,10 +12338,11 @@ module.exports = function() {
       // add the walls
 
       this.addBody({
+        entType:'wall',
         x: canvas.width/2,
         y: canvas.height + 10,
         halfHeight: 10,
-        halfWidth: canvas.width / 2,
+        halfWidth: canvas.width,
         type: 'static',
         userData : {
           id: 'wall',
@@ -12249,10 +12355,11 @@ module.exports = function() {
       });
 
       this.addBody({
+        entType:'wall',
         x: canvas.width/2,
         y: -1,
         halfHeight: 10,
-        halfWidth: canvas.width /2,
+        halfWidth: canvas.width,
         type: 'static',
         userData : {
           id: 'wall',
@@ -12264,6 +12371,23 @@ module.exports = function() {
         }
       });
 
+
+      this.addBody({
+        entType:'wall',
+        x: -150,
+        y: canvas.height/2,
+        halfHeight: canvas.height,
+        halfWidth: 10,
+        type: 'static',
+        userData : {
+          id: 'wall',
+          ent: {
+            onTouch: function() {
+
+            }
+          }
+        }
+      });
       
       this.debugDraw = new DebugDraw()
       this.debugDraw.SetSprite(document.getElementsByTagName("canvas")[0].getContext('2d'));
@@ -12358,6 +12482,25 @@ module.exports = function() {
         fixtureDef.density = 0;
         fixtureDef.friction = 0;
         fixtureDef.restitution = 0;
+
+      var categoryBits;
+      var maskBits;
+      
+      categoryBits = categories[entityDef.entType];
+      
+      if (entityDef.entType === 'player') {
+        maskBits = categories.enemy | categories.wall 
+      } else if (entityDef.entType === 'bullet') {
+        maskBits = categories.enemy
+      } else if (entityDef.entType === 'enemy') {
+        maskBits = categories.player | categories.bullet
+      } else if (entityDef.entType === 'wall') {
+        maskBits = categories.player
+      }
+      
+      fixtureDef.filter.categoryBits = categoryBits;
+      fixtureDef.filter.maskBits = maskBits;
+      
 
       // give it a fixture
       body.CreateFixture(fixtureDef);
