@@ -12,6 +12,7 @@ module.exports = function(game) {
   var increase = Math.PI / 50;
   var freq = 50
   var timePlayed = 0;
+  var intervalTime = 0;
 
   var enemyIntervalMin = 30
 
@@ -34,6 +35,7 @@ module.exports = function(game) {
       this.width = canvas.width;
       this.game = game;
       this.debug = document.getElementsByTagName('p')[0]
+
     },
 
     mode: function(_) {
@@ -47,6 +49,7 @@ module.exports = function(game) {
 
       this.stepMargins();
 
+      timePlayed++;
       
       
       counter += freqIncrease;
@@ -56,39 +59,45 @@ module.exports = function(game) {
 
       if (nextEnemy <= timestamp) {
 
-        if (timePlayed < 290 ) {
-          mode = 0
-        } else if (timePlayed < 950) {
-          mode = 1
-        } else if (timePlayed < 2000) {
-          mode = 2
-        } else if (timePlayed < 3000) {
-          mode = 3
-        } else if (timePlayed < 4000) {
-          mode = 4
-        }
-        
+       
+        mode = Math.min(Math.floor(timePlayed / 1000), 7);
 
         var yPos = this.calculateY();
 
-        
         this.debug.innerHTML = 'freqInc: ' + freqIncrease +
            '<br>apertureFactor: ' + apertureFactor +
            '<br>counter: ' + counter +
            '<br>enemyInterval: ' + enemyInterval +
            '<br>mode: ' + mode +
-           '<br>timePlayed: ' + timePlayed
+           '<br>timePlayed: ' + timePlayed +
+           '<br>entities:' + this.game.entities.length
 
-        this.spawnEnemy(xPos, yPos)
+        var dir = this.calculateDir();
+
+        if (mode == 7) {
+          this.spawnEnemy(xPos, (this.height - yPos/3) % this.height, dir)
+          this.spawnEnemy(xPos, (this.height - yPos/2) % this.height, dir)
+          this.spawnEnemy(xPos, (this.height - yPos) % this.height, dir)
+          this.spawnEnemy(xPos, yPos, dir)
+          var dir2 = { x: dir.x, y : -dir.y}
+          this.spawnEnemy(xPos, (this.height + yPos) % this.height, dir2)
+          this.spawnEnemy(xPos, (this.height + yPos/2) % this.height, dir2)
+          this.spawnEnemy(xPos, (this.height + yPos/3) % this.height, dir2)
+        } else if (mode == 6) {
+          this.spawnEnemy(xPos, (this.height - yPos) % this.height, dir)
+          this.spawnEnemy(xPos, (this.height - yPos/2) % this.height, dir)
+          this.spawnEnemy(xPos, yPos, dir)
+          this.spawnEnemy(xPos, (this.height + yPos) % this.height, dir)
+          this.spawnEnemy(xPos, (this.height + yPos/2) % this.height, dir)
+        } else if (mode == 5) {
+          this.spawnEnemy(xPos, (this.height - yPos) % this.height, dir)
+          this.spawnEnemy(xPos, yPos, dir)
+          this.spawnEnemy(xPos, (this.height + yPos) % this.height, dir)
+        } else {
+          this.spawnEnemy(xPos, yPos, dir)
+        }
         nextEnemy = timestamp + enemyInterval;
-        timePlayed++;
-        
-        enemyInterval = enemyIntervalMin + (initialInterval * Math.exp(decayRate * timePlayed))
-        
-          
-        
-
-        // console.log(enemyInterval, timePlayed);
+        enemyInterval = enemyIntervalMin + (initialInterval * Math.exp(decayRate * intervalTime++))
 
       } 
 
@@ -114,7 +123,7 @@ module.exports = function(game) {
           apertureFactor = 2 + (aperture * Math.exp(apertureDecayRate * timePlayed))
           return (this.height/2) + Math.cos(counter) * (this.height/apertureFactor);
         case 1: 
-          enemyIntervalMin = 40
+          enemyIntervalMin = 40;
           freqIncrease = Math.PI / 40;
           apertureFactor = 2 + (Math.log(timePlayed))
           return (this.height/2) + (Math.cos(counter) * this.height/2) + (Math.sin(counter) * (this.height/apertureFactor));
@@ -124,17 +133,32 @@ module.exports = function(game) {
           apertureFactor = 2 + (Math.log(timePlayed))
           return  (this.height/2) + (Math.sin(counter) * this.height/2) + (Math.sin(counter) * (this.height/apertureFactor));
         case 3: 
-          enemyIntervalMin = 20
+          enemyIntervalMin = 20;
           freqIncrease = Math.PI / 500;
           increase = Math.PI / 50;
-          apertureFactor = 8 * Math.random()
-          return (this.height/2)  + (Math.sin(counter) * this.height/2)
+          apertureFactor = 8 * Math.random();
+          return (this.height/2)  + (Math.sin(counter) * this.height/2);
         case 4: 
-          enemyIntervalMin = 20
+          enemyIntervalMin = 20;
           freqIncrease = Math.PI / 400;
           increase = Math.PI / 10;
-          return (this.height/2)  + (Math.cos(counter) * this.height/2)
-          // return  Math.random() * (100) - (Math.tan(counter) * this.height/2) + (Math.sin(counter) * (this.height/apertureFactor));
+          return (this.height/2)  + (Math.cos(counter) * this.height/2);
+        case 5:
+          enemyIntervalMin = 10;
+          freqIncrease = 1;
+          increase = Math.PI / 5;
+          return Math.abs((counter % (this.height*2)) - this.height)
+        case 6:
+          enemyIntervalMin = 5;
+          freqIncrease = 3;
+          increase = Math.PI/ 10 ;
+          return Math.abs((counter % (this.height*2)) - this.height)        
+        case 7:
+          enemyIntervalMin = 25;
+          freqIncrease = 1;
+          increase = Math.PI/ 50 ;
+          return Math.abs((counter % (this.height*2)) - this.height)
+
       }
 
 
@@ -146,7 +170,7 @@ module.exports = function(game) {
 
       switch (mode) {
         case 0:
-          return {x: -1, y: 0}
+          return {x: -1, y: 0 }
         case 1: 
           return {x: -1.1, y: 0}
         case 2:
@@ -154,18 +178,24 @@ module.exports = function(game) {
         case 3:
           return {x: -1.2, y: (Math.cos(particleCounter))}        
         case 4:
-          return {x: -2, y: (Math.sin(particleCounter))}
+          return {x: -2,  y: (Math.sin(particleCounter))}
+        case 5:
+          return {x: -1.2, y: (Math.sin(particleCounter))}
+        case 6:
+          return {x: -1.2, y: (Math.cos(particleCounter))}
+        default:
+          return {x: -1, y: (Math.cos(particleCounter))}
 
       }
 
     },
 
 
-    spawnEnemy : function (xPos, yPos) {
+    spawnEnemy : function (xPos, yPos, dir) {
 
       var enemy = this.game.spawnEntity('enemy');
       enemy.init(xPos, yPos , {
-          dir : this.calculateDir()
+          dir : dir
       })
 
     }

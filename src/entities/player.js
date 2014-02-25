@@ -33,6 +33,7 @@ module.exports = function(game) {
       this.dir = settings.dir || new Vec2(0,0)
 
       var entityDef =  {
+        entType: 'player',
         id : this.id,
         x : this.pos.x,
         y : this.pos.y,
@@ -130,7 +131,7 @@ module.exports = function(game) {
         var mode = game.bulletHell.mode()
 
         if (mode > 0) {
-          this.fireDelay = 25*mode;
+          this.fireDelay = 200/mode;
         }
         
         // shoot the first bullet
@@ -154,53 +155,106 @@ module.exports = function(game) {
           var bullet = game.spawnEntity('bullet')
           bullet.init(
               this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y - 12.5, 
+              this.pos.y, 
             {
             owner : "player_" + this.guid,
             dir : {
               x: 1,
-              y: -0.05
+              y: -0.15
             }
           });
 
           bullet = game.spawnEntity('bullet')
           bullet.init(
               this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y + 12.5, 
+              this.pos.y, 
             {
             owner : "player_" + this.guid,
             dir : {
               x: 1,
-              y: 0.05
+              y: 0.15
             }
           });
         }
 
         
-        if (mode > 2) {
+        if (mode > 2 && mode < 6) {
           var bullet = game.spawnEntity('bullet')
           bullet.init(
               this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y - 25, 
+              this.pos.y, 
             {
             owner : "player_" + this.guid,
             dir : {
               x: 1,
-              y: -0.05
+              y: -0.25
             }
           });
 
           bullet = game.spawnEntity('bullet')
           bullet.init(
               this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y + 25, 
+              this.pos.y, 
             {
             owner : "player_" + this.guid,
             dir : {
               x: 1,
-              y: 0.05
+              y: 0.25
             }
           });
+        }
+
+        if  (mode >= 6) {
+          var bullet = game.spawnEntity('bullet')
+          bullet.init(
+              this.pos.x + ( this.size.w * 0.5 ) + 20, 
+              this.pos.y, 
+            {
+            owner : "player_" + this.guid,
+            dir : {
+              x: 2,
+              y: -0.45
+            }
+          });          
+
+          var bullet = game.spawnEntity('bullet')
+          bullet.init(
+              this.pos.x + ( this.size.w * 0.5 ) + 20, 
+              this.pos.y, 
+            {
+            owner : "player_" + this.guid,
+            dir : {
+              x: 2,
+              y: -0.25
+            }
+          });
+
+          bullet = game.spawnEntity('bullet')
+          bullet.init(
+              this.pos.x + ( this.size.w * 0.5 ) + 20, 
+              this.pos.y, 
+            {
+            owner : "player_" + this.guid,
+            dir : {
+              x: 2,
+              y: 0.25
+            }
+          });
+
+          bullet = game.spawnEntity('bullet')
+          bullet.init(
+              this.pos.x + ( this.size.w * 0.5 ) + 20, 
+              this.pos.y, 
+            {
+            owner : "player_" + this.guid,
+            dir : {
+              x: 2,
+              y: 0.45
+            }
+          });
+
+
+
         }
 
         this.nextFireTime = new Date().getTime() + this.fireDelay

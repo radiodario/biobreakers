@@ -31,9 +31,10 @@ module.exports = function() {
     sound : soundEngine(),
 
     bulletHell : bulletHell(),
-
     loading: true,
     music: true,
+
+    timePlayed : 0,
 
     entities: [],
     _deadEntities : [],
@@ -100,6 +101,7 @@ module.exports = function() {
     startGame : function() {
       this.start = true;
       this.soundStopped = false;
+      this.timePlayed = 0;
       // create our player
       this.player = this.spawnEntity('player')
 
@@ -229,6 +231,8 @@ module.exports = function() {
         }
 
       } else {
+
+        this.timePlayed++;
 
         this.bulletHell.step(timestep);
 

@@ -40,6 +40,7 @@ module.exports = function(game) {
 
       
       var entityDef = {
+        entType: 'bullet',
         id : this.id,
         x : this.pos.x,
         y : this.pos.y,

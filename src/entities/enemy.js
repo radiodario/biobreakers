@@ -37,6 +37,7 @@ module.exports = function(game) {
       this.id = 'enemy_' + this.guid;
 
       var entityDef = {
+        entType: 'enemy',
         id: this.id,
         x: this.pos.x,
         y: this.pos.y,
@@ -74,7 +75,15 @@ module.exports = function(game) {
 
       this.parent();
 
-      if (this.pos.x < -200) {
+      if (this.pos.x < -20) {
+        this.kill(true)
+      }
+
+      if (this.pos.y < -20) {
+        this.kill(true)
+      }
+
+      if (this.pos.y > game.canvas.height + 20) {
         this.kill(true)
       }
 
