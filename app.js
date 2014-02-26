@@ -11686,7 +11686,7 @@ module.exports = function(game) {
         return
       }
       else {
-        game.sound.play('sounds/robotnik_laser.ogg', false, 0.2);
+        game.sound.play('sounds/robotnik_laser.mp3', false, 0.2);
 
 
         var mode = game.bulletHell.mode()
@@ -11839,7 +11839,7 @@ module.exports = function(game) {
       if (hitBody.id == 'wall') return false
 
       this.currentSpriteName = 'robotnik_stand_right_hurt.png';
-      game.sound.play('sounds/hitsound.ogg', false, 0.05);
+      game.sound.play('sounds/hitsound.mp3', false, 0.05);
 
     }
 
@@ -11916,11 +11916,10 @@ var assets = [
 
 var sounds = [
 
-  'sounds/eggman_acid.ogg',
-  'sounds/eggmans_return.ogg',
-  'sounds/robotnik_laser.ogg',
-  'sounds/you_died.ogg',
-  'sounds/hitsound.ogg'
+  'sounds/eggmans_acid.mp3',
+  'sounds/robotnik_laser.mp3',
+  'sounds/you_died.mp3',
+  'sounds/hitsound.mp3'
 
 ]
 
@@ -12125,7 +12124,7 @@ module.exports = function() {
         if (!this.soundStopped) {
           this.sound.stopAll()
           this.soundStopped = true
-          this.sound.play('sounds/you_died.ogg', false, 0.4);
+          this.sound.play('sounds/you_died.mp3', false, 0.4);
         }
         
         if (this.input.actions['restart']) {          
@@ -12154,8 +12153,7 @@ module.exports = function() {
       // we handle the sounds a bit differently than the music
       var tracks = [
           // [trackName, trackvolume]
-        ['sounds/eggman_acid.ogg', 0.2],
-        ['sounds/eggmans_return.ogg', 0.1]
+        ['sounds/eggmans_acid.mp3', 0.2]
       ];
 
       if (this.music) {
