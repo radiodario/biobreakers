@@ -11692,7 +11692,7 @@ module.exports = function(game) {
         var mode = game.bulletHell.mode()
 
         if (mode > 0) {
-          this.fireDelay = 200/mode;
+          this.fireDelay = 500/mode;
         }
         
         // shoot the first bullet
@@ -11917,6 +11917,7 @@ var assets = [
 var sounds = [
 
   'sounds/eggman_acid.ogg',
+  'sounds/eggmans_return.ogg',
   'sounds/robotnik_laser.ogg',
   'sounds/you_died.ogg',
   'sounds/hitsound.ogg'
@@ -12010,9 +12011,7 @@ module.exports = function() {
 
       this.player.init(200, this.canvas.height/2, {});
 
-      if (!this.musicPlaying && this.music) {
-        this.sound.play('sounds/eggman_acid.ogg', true, 0.2);
-      }
+      this.playMusic();
       this.input.bind(32, 'fire'); // rebind to fire
 
     },
@@ -12147,6 +12146,21 @@ module.exports = function() {
       }
 
 
+
+    },
+
+
+    playMusic: function() {
+      // we handle the sounds a bit differently than the music
+      var tracks = [
+          // [trackName, trackvolume]
+        ['sounds/eggman_acid.ogg', 0.2],
+        ['sounds/eggmans_return.ogg', 0.1]
+      ];
+
+      if (this.music) {
+        this.sound.playMusic(tracks, 0.2);
+      }
 
     },
 
@@ -12758,6 +12772,10 @@ var Sound = function(player) {
 
     play : function(loop, volume) {
       player.playSound(this.path, {looping: loop, volume: volume || 1})
+    }, 
+
+    stop : function() {
+
     }
   }
 
@@ -12768,6 +12786,7 @@ var Sound = function(player) {
 
 module.exports = function () {
 
+  var trackID = 0; // music track in the list
 
   return  {
 
@@ -12780,6 +12799,8 @@ module.exports = function () {
     _context: null,
 
     _mainNode: null,
+
+    _musicNode : null,
 
     numLoaded : 0,
 
@@ -12891,6 +12912,32 @@ module.exports = function () {
       this._mainNode = this._context.createGainNode(0);
       this._mainNode.connect(this._context.destination);
     },
+
+    // rudimentary looping music player
+    playMusic: function(tracks) {
+
+      var track = tracks[trackID] // list, [trackName, trackVolume]
+      
+      this._musicNode = this._context.createBufferSource();
+      this._musicNode.buffer = this.clips[track[0]].b;
+      this._musicNode.gain.volume = track[1];
+      this._musicNode.connect(this._mainNode);
+      this._musicNode.loop = false;
+      var that = this;
+      this._musicNode.onended = function() {
+        // set the next track on playlist
+        trackID = (trackID + 1) % tracks.length;
+        // recursively call playMusic
+        that.playMusic(tracks)
+      }
+
+      this._musicNode.noteOn(0);
+
+
+
+    },
+
+
     //----------------------------
     playSound: function(path, settings) {
       if (!this.enabled ) 
