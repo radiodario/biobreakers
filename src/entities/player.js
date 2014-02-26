@@ -125,13 +125,13 @@ module.exports = function(game) {
         return
       }
       else {
-        game.sound.play('sounds/robotnik_laser.ogg', false, 0.2);
+        game.sound.play('sounds/robotnik_laser.mp3', false, 0.2);
 
 
         var mode = game.bulletHell.mode()
 
         if (mode > 0) {
-          this.fireDelay = 200/mode;
+          this.fireDelay = 500/mode;
         }
         
         // shoot the first bullet
@@ -278,7 +278,7 @@ module.exports = function(game) {
       if (hitBody.id == 'wall') return false
 
       this.currentSpriteName = 'robotnik_stand_right_hurt.png';
-      game.sound.play('sounds/hitsound.ogg', false, 0.05);
+      game.sound.play('sounds/hitsound.mp3', false, 0.05);
 
     }
 

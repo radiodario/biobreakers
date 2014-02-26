@@ -13,10 +13,10 @@ var assets = [
 
 var sounds = [
 
-  'sounds/eggman_acid.ogg',
-  'sounds/robotnik_laser.ogg',
-  'sounds/you_died.ogg',
-  'sounds/hitsound.ogg'
+  'sounds/eggmans_acid.mp3',
+  'sounds/robotnik_laser.mp3',
+  'sounds/you_died.mp3',
+  'sounds/hitsound.mp3'
 
 ]
 
@@ -107,9 +107,7 @@ module.exports = function() {
 
       this.player.init(200, this.canvas.height/2, {});
 
-      if (!this.musicPlaying && this.music) {
-        this.sound.play('sounds/eggman_acid.ogg', true, 0.2);
-      }
+      this.playMusic();
       this.input.bind(32, 'fire'); // rebind to fire
 
     },
@@ -223,7 +221,7 @@ module.exports = function() {
         if (!this.soundStopped) {
           this.sound.stopAll()
           this.soundStopped = true
-          this.sound.play('sounds/you_died.ogg', false, 0.4);
+          this.sound.play('sounds/you_died.mp3', false, 0.4);
         }
         
         if (this.input.actions['restart']) {          
@@ -244,6 +242,20 @@ module.exports = function() {
       }
 
 
+
+    },
+
+
+    playMusic: function() {
+      // we handle the sounds a bit differently than the music
+      var tracks = [
+          // [trackName, trackvolume]
+        ['sounds/eggmans_acid.mp3', 0.2]
+      ];
+
+      if (this.music) {
+        this.sound.playMusic(tracks, 0.2);
+      }
 
     },
 

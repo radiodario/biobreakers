@@ -7,6 +7,10 @@ var Sound = function(player) {
 
     play : function(loop, volume) {
       player.playSound(this.path, {looping: loop, volume: volume || 1})
+    }, 
+
+    stop : function() {
+
     }
   }
 
@@ -17,6 +21,7 @@ var Sound = function(player) {
 
 module.exports = function () {
 
+  var trackID = 0; // music track in the list
 
   return  {
 
@@ -29,6 +34,8 @@ module.exports = function () {
     _context: null,
 
     _mainNode: null,
+
+    _musicNode : null,
 
     numLoaded : 0,
 
@@ -140,6 +147,32 @@ module.exports = function () {
       this._mainNode = this._context.createGainNode(0);
       this._mainNode.connect(this._context.destination);
     },
+
+    // rudimentary looping music player
+    playMusic: function(tracks) {
+
+      var track = tracks[trackID] // list, [trackName, trackVolume]
+      
+      this._musicNode = this._context.createBufferSource();
+      this._musicNode.buffer = this.clips[track[0]].b;
+      this._musicNode.gain.volume = track[1];
+      this._musicNode.connect(this._mainNode);
+      this._musicNode.loop = false;
+      var that = this;
+      this._musicNode.onended = function() {
+        // set the next track on playlist
+        trackID = (trackID + 1) % tracks.length;
+        // recursively call playMusic
+        that.playMusic(tracks)
+      }
+
+      this._musicNode.noteOn(0);
+
+
+
+    },
+
+
     //----------------------------
     playSound: function(path, settings) {
       if (!this.enabled ) 
