@@ -133,13 +133,13 @@ module.exports = function(game) {
         if (mode > 0) {
           this.fireDelay = 500/mode;
         }
-        
+
         // shoot the first bullet
         if (mode == 0 || mode > 2) {
           var bullet = game.spawnEntity('bullet')
           bullet.init(
-            this.pos.x + ( this.size.w * 0.5 ) + 20, 
-            this.pos.y, 
+            this.pos.x + ( this.size.w * 0.5 ) + 20,
+            this.pos.y,
             {
             owner : "player_" + this.guid,
             dir : {
@@ -154,8 +154,8 @@ module.exports = function(game) {
         if (mode == 1 || mode == 2) {
           var bullet = game.spawnEntity('bullet')
           bullet.init(
-              this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y, 
+              this.pos.x + ( this.size.w * 0.5 ) + 20,
+              this.pos.y,
             {
             owner : "player_" + this.guid,
             dir : {
@@ -166,8 +166,8 @@ module.exports = function(game) {
 
           bullet = game.spawnEntity('bullet')
           bullet.init(
-              this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y, 
+              this.pos.x + ( this.size.w * 0.5 ) + 20,
+              this.pos.y,
             {
             owner : "player_" + this.guid,
             dir : {
@@ -177,12 +177,12 @@ module.exports = function(game) {
           });
         }
 
-        
+
         if (mode > 2 && mode < 6) {
           var bullet = game.spawnEntity('bullet')
           bullet.init(
-              this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y, 
+              this.pos.x + ( this.size.w * 0.5 ) + 20,
+              this.pos.y,
             {
             owner : "player_" + this.guid,
             dir : {
@@ -193,8 +193,8 @@ module.exports = function(game) {
 
           bullet = game.spawnEntity('bullet')
           bullet.init(
-              this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y, 
+              this.pos.x + ( this.size.w * 0.5 ) + 20,
+              this.pos.y,
             {
             owner : "player_" + this.guid,
             dir : {
@@ -207,20 +207,20 @@ module.exports = function(game) {
         if  (mode >= 6) {
           var bullet = game.spawnEntity('bullet')
           bullet.init(
-              this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y, 
+              this.pos.x + ( this.size.w * 0.5 ) + 20,
+              this.pos.y,
             {
             owner : "player_" + this.guid,
             dir : {
               x: 2,
               y: -0.45
             }
-          });          
+          });
 
           var bullet = game.spawnEntity('bullet')
           bullet.init(
-              this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y, 
+              this.pos.x + ( this.size.w * 0.5 ) + 20,
+              this.pos.y,
             {
             owner : "player_" + this.guid,
             dir : {
@@ -231,8 +231,8 @@ module.exports = function(game) {
 
           bullet = game.spawnEntity('bullet')
           bullet.init(
-              this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y, 
+              this.pos.x + ( this.size.w * 0.5 ) + 20,
+              this.pos.y,
             {
             owner : "player_" + this.guid,
             dir : {
@@ -243,8 +243,8 @@ module.exports = function(game) {
 
           bullet = game.spawnEntity('bullet')
           bullet.init(
-              this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y, 
+              this.pos.x + ( this.size.w * 0.5 ) + 20,
+              this.pos.y,
             {
             owner : "player_" + this.guid,
             dir : {
@@ -259,9 +259,9 @@ module.exports = function(game) {
 
         this.nextFireTime = new Date().getTime() + this.fireDelay
       }
-     
-      
-      
+
+
+
 
     },
 
@@ -286,7 +286,7 @@ module.exports = function(game) {
 
   }
 
-  
+
 
   return extend(base, player);
 

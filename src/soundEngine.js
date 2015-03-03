@@ -7,7 +7,7 @@ var Sound = function(player) {
 
     play : function(loop, volume) {
       player.playSound(this.path, {looping: loop, volume: volume || 1})
-    }, 
+    },
 
     stop : function() {
 
@@ -49,8 +49,8 @@ module.exports = function () {
       catch(e) {
         alert('Web Audio API is not supported in this browser');
       }
-      
-      this._mainNode = this._context.createGainNode(0);
+
+      this._mainNode = this._context.createGain(0);
       this._mainNode.connect(this._context.destination);
 
       var that = this;
@@ -89,7 +89,7 @@ module.exports = function () {
         callbackFcn(this.clips[path].s);
         return this.clips[path].s;
       }
-      
+
       var clip = {s: Sound(this),b:null,l:false};
       this.clips[path] = clip;
       clip.s.path = path;
@@ -101,21 +101,21 @@ module.exports = function () {
       var that = this;
 
       request.onload = function() {
-        that._context.decodeAudioData(request.response, 
+        that._context.decodeAudioData(request.response,
         function(buffer){
                 clip.b = buffer;
                 clip.l = true;
-                callbackFcn(clip.s); 
+                callbackFcn(clip.s);
         },
         function(data){
-                
+
         });
       }
       request.send();
-      
-      
+
+
       return clip.s;
-            
+
     },
 
 
@@ -130,7 +130,7 @@ module.exports = function () {
     togglemute: function() {
       if (this._mainNode.gain.value>0)
         this._mainNode.gain.value = 0;
-      else 
+      else
         this._mainNode.gain.value =1;
     },
     // --------------------------
@@ -144,7 +144,7 @@ module.exports = function () {
     //----------------------------
     stopAll: function() {
       this._mainNode.disconnect();
-      this._mainNode = this._context.createGainNode(0);
+      this._mainNode = this._context.createGain(0);
       this._mainNode.connect(this._context.destination);
     },
 
@@ -152,10 +152,10 @@ module.exports = function () {
     playMusic: function(tracks) {
 
       var track = tracks[trackID] // list, [trackName, trackVolume]
-      
+
       this._musicNode = this._context.createBufferSource();
       this._musicNode.buffer = this.clips[track[0]].b;
-      this._musicNode.gain.volume = track[1];
+
       this._musicNode.connect(this._mainNode);
       this._musicNode.loop = false;
       var that = this;
@@ -166,7 +166,7 @@ module.exports = function () {
         that.playMusic(tracks)
       }
 
-      this._musicNode.noteOn(0);
+      this._musicNode.start();
 
 
 
@@ -175,29 +175,29 @@ module.exports = function () {
 
     //----------------------------
     playSound: function(path, settings) {
-      if (!this.enabled ) 
+      if (!this.enabled )
           return false;
-      
+
       var looping = false;
-      var volume = 0.2;
+      var volume = 0.4;
       if (settings) {
         if(settings.looping)
             looping = settings.looping;
         if(settings.volume)
             volume = settings.volume;
       }
-      
+
       var sd = this.clips[path];
       if(sd == null)
           return false;
       if(sd.l == false) return false;
-          
+
       var currentClip = this._context.createBufferSource(); // creates a sound source
       currentClip.buffer = sd.b;          // tell the source which sound to play
-      currentClip.gain.value = volume;
+      // currentClip.gain.value = volume;
       currentClip.connect(this._mainNode);
       currentClip.loop = looping;
-      currentClip.noteOn(0);              // play the source now
+      currentClip.start();              // play the source now
       return true;
     },
 
