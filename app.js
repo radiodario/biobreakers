@@ -46,7 +46,7 @@ var setup = function() {
 setup();
 
 
-},{"./gameEngine":12}],2:[function(require,module,exports){
+},{"./gameEngine":11}],2:[function(require,module,exports){
 /*
 * Copyright (c) 2006-2007 Erin Catto http://www.gphysics.com
 *
@@ -11269,7 +11269,7 @@ module.exports = function(game) {
   return extend(base, bullet);
 
 }
-},{"../extend":11,"./entity":6}],5:[function(require,module,exports){
+},{"../extend":10,"./entity":6}],5:[function(require,module,exports){
 entity = require('./entity');
 extend = require('../extend');
 
@@ -11418,7 +11418,7 @@ module.exports = function(game) {
   return extend(base, enemy);
 
 }
-},{"../extend":11,"./entity":6}],6:[function(require,module,exports){
+},{"../extend":10,"./entity":6}],6:[function(require,module,exports){
 guid = require('../guid');
 
 module.exports = function(game) {
@@ -11497,7 +11497,7 @@ module.exports = function(game) {
 }
 
 
-},{"../guid":13}],7:[function(require,module,exports){
+},{"../guid":12}],7:[function(require,module,exports){
 entity = require('./entity');
 extend = require('../extend');
 
@@ -11511,7 +11511,7 @@ module.exports = function(renderEngine) {
   });
 
 }
-},{"../extend":11,"./entity":6}],8:[function(require,module,exports){
+},{"../extend":10,"./entity":6}],8:[function(require,module,exports){
 entity = require('./entity');
 extend = require('../extend');
 
@@ -11558,7 +11558,7 @@ module.exports = function (game) {
   return extend(base, explosion);
 
 }
-},{"../extend":11,"./entity":6}],9:[function(require,module,exports){
+},{"../extend":10,"./entity":6}],9:[function(require,module,exports){
 entity = require('./entity');
 extend = require('../extend');
 
@@ -11694,13 +11694,13 @@ module.exports = function(game) {
         if (mode > 0) {
           this.fireDelay = 500/mode;
         }
-        
+
         // shoot the first bullet
         if (mode == 0 || mode > 2) {
           var bullet = game.spawnEntity('bullet')
           bullet.init(
-            this.pos.x + ( this.size.w * 0.5 ) + 20, 
-            this.pos.y, 
+            this.pos.x + ( this.size.w * 0.5 ) + 20,
+            this.pos.y,
             {
             owner : "player_" + this.guid,
             dir : {
@@ -11715,8 +11715,8 @@ module.exports = function(game) {
         if (mode == 1 || mode == 2) {
           var bullet = game.spawnEntity('bullet')
           bullet.init(
-              this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y, 
+              this.pos.x + ( this.size.w * 0.5 ) + 20,
+              this.pos.y,
             {
             owner : "player_" + this.guid,
             dir : {
@@ -11727,8 +11727,8 @@ module.exports = function(game) {
 
           bullet = game.spawnEntity('bullet')
           bullet.init(
-              this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y, 
+              this.pos.x + ( this.size.w * 0.5 ) + 20,
+              this.pos.y,
             {
             owner : "player_" + this.guid,
             dir : {
@@ -11738,12 +11738,12 @@ module.exports = function(game) {
           });
         }
 
-        
+
         if (mode > 2 && mode < 6) {
           var bullet = game.spawnEntity('bullet')
           bullet.init(
-              this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y, 
+              this.pos.x + ( this.size.w * 0.5 ) + 20,
+              this.pos.y,
             {
             owner : "player_" + this.guid,
             dir : {
@@ -11754,8 +11754,8 @@ module.exports = function(game) {
 
           bullet = game.spawnEntity('bullet')
           bullet.init(
-              this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y, 
+              this.pos.x + ( this.size.w * 0.5 ) + 20,
+              this.pos.y,
             {
             owner : "player_" + this.guid,
             dir : {
@@ -11768,20 +11768,20 @@ module.exports = function(game) {
         if  (mode >= 6) {
           var bullet = game.spawnEntity('bullet')
           bullet.init(
-              this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y, 
+              this.pos.x + ( this.size.w * 0.5 ) + 20,
+              this.pos.y,
             {
             owner : "player_" + this.guid,
             dir : {
               x: 2,
               y: -0.45
             }
-          });          
+          });
 
           var bullet = game.spawnEntity('bullet')
           bullet.init(
-              this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y, 
+              this.pos.x + ( this.size.w * 0.5 ) + 20,
+              this.pos.y,
             {
             owner : "player_" + this.guid,
             dir : {
@@ -11792,8 +11792,8 @@ module.exports = function(game) {
 
           bullet = game.spawnEntity('bullet')
           bullet.init(
-              this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y, 
+              this.pos.x + ( this.size.w * 0.5 ) + 20,
+              this.pos.y,
             {
             owner : "player_" + this.guid,
             dir : {
@@ -11804,8 +11804,8 @@ module.exports = function(game) {
 
           bullet = game.spawnEntity('bullet')
           bullet.init(
-              this.pos.x + ( this.size.w * 0.5 ) + 20, 
-              this.pos.y, 
+              this.pos.x + ( this.size.w * 0.5 ) + 20,
+              this.pos.y,
             {
             owner : "player_" + this.guid,
             dir : {
@@ -11820,9 +11820,9 @@ module.exports = function(game) {
 
         this.nextFireTime = new Date().getTime() + this.fireDelay
       }
-     
-      
-      
+
+
+
 
     },
 
@@ -11847,14 +11847,12 @@ module.exports = function(game) {
 
   }
 
-  
+
 
   return extend(base, player);
 
 }
-},{"../extend":11,"./entity":6}],10:[function(require,module,exports){
-
-},{}],11:[function(require,module,exports){
+},{"../extend":10,"./entity":6}],10:[function(require,module,exports){
 
 
 module.exports = function(parentClass, newClass) {
@@ -11900,7 +11898,7 @@ module.exports = function(parentClass, newClass) {
   return result;
 
 }
-},{}],12:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 var inputEngine = require('./inputEngine');
 var renderEngine = require('./renderEngine');
 var physicsEngine = require('./physicsEngine');
@@ -12216,7 +12214,7 @@ module.exports = function() {
 
 
 };
-},{"./bulletHell":3,"./entities/bullet":4,"./entities/enemy":5,"./entities/explosion":8,"./entities/player":9,"./inputEngine":14,"./physicsEngine":15,"./renderEngine":16,"./soundEngine":17}],13:[function(require,module,exports){
+},{"./bulletHell":3,"./entities/bullet":4,"./entities/enemy":5,"./entities/explosion":8,"./entities/player":9,"./inputEngine":13,"./physicsEngine":14,"./renderEngine":15,"./soundEngine":16}],12:[function(require,module,exports){
 // returns a new guid
 module.exports = function () {
   var S4 = function () {
@@ -12225,7 +12223,7 @@ module.exports = function () {
   return (S4()).toString();
 };
 
-},{}],14:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 module.exports = function() {
 
 
@@ -12298,7 +12296,7 @@ module.exports = function() {
 
 
 }
-},{}],15:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 var Box2D = require('./box2D').Box2D;
 
 // These are global shorthands we declare for Box2D primitives
@@ -12550,7 +12548,7 @@ module.exports = function() {
 
 
 }
-},{"./box2D":2}],16:[function(require,module,exports){
+},{"./box2D":2}],15:[function(require,module,exports){
 var spriteSheet = require('./spritesheet');
 
 
@@ -12760,7 +12758,7 @@ module.exports = function () {
 
 
 }
-},{"./spritesheet":18}],17:[function(require,module,exports){
+},{"./spritesheet":17}],16:[function(require,module,exports){
 
 var Sound = function(player) {
   return {
@@ -12770,7 +12768,7 @@ var Sound = function(player) {
 
     play : function(loop, volume) {
       player.playSound(this.path, {looping: loop, volume: volume || 1})
-    }, 
+    },
 
     stop : function() {
 
@@ -12812,8 +12810,8 @@ module.exports = function () {
       catch(e) {
         alert('Web Audio API is not supported in this browser');
       }
-      
-      this._mainNode = this._context.createGainNode(0);
+
+      this._mainNode = this._context.createGain(0);
       this._mainNode.connect(this._context.destination);
 
       var that = this;
@@ -12852,7 +12850,7 @@ module.exports = function () {
         callbackFcn(this.clips[path].s);
         return this.clips[path].s;
       }
-      
+
       var clip = {s: Sound(this),b:null,l:false};
       this.clips[path] = clip;
       clip.s.path = path;
@@ -12864,21 +12862,21 @@ module.exports = function () {
       var that = this;
 
       request.onload = function() {
-        that._context.decodeAudioData(request.response, 
+        that._context.decodeAudioData(request.response,
         function(buffer){
                 clip.b = buffer;
                 clip.l = true;
-                callbackFcn(clip.s); 
+                callbackFcn(clip.s);
         },
         function(data){
-                
+
         });
       }
       request.send();
-      
-      
+
+
       return clip.s;
-            
+
     },
 
 
@@ -12893,7 +12891,7 @@ module.exports = function () {
     togglemute: function() {
       if (this._mainNode.gain.value>0)
         this._mainNode.gain.value = 0;
-      else 
+      else
         this._mainNode.gain.value =1;
     },
     // --------------------------
@@ -12907,7 +12905,7 @@ module.exports = function () {
     //----------------------------
     stopAll: function() {
       this._mainNode.disconnect();
-      this._mainNode = this._context.createGainNode(0);
+      this._mainNode = this._context.createGain(0);
       this._mainNode.connect(this._context.destination);
     },
 
@@ -12915,10 +12913,10 @@ module.exports = function () {
     playMusic: function(tracks) {
 
       var track = tracks[trackID] // list, [trackName, trackVolume]
-      
+
       this._musicNode = this._context.createBufferSource();
       this._musicNode.buffer = this.clips[track[0]].b;
-      this._musicNode.gain.volume = track[1];
+
       this._musicNode.connect(this._mainNode);
       this._musicNode.loop = false;
       var that = this;
@@ -12929,7 +12927,7 @@ module.exports = function () {
         that.playMusic(tracks)
       }
 
-      this._musicNode.noteOn(0);
+      this._musicNode.start();
 
 
 
@@ -12938,29 +12936,29 @@ module.exports = function () {
 
     //----------------------------
     playSound: function(path, settings) {
-      if (!this.enabled ) 
+      if (!this.enabled )
           return false;
-      
+
       var looping = false;
-      var volume = 0.2;
+      var volume = 0.4;
       if (settings) {
         if(settings.looping)
             looping = settings.looping;
         if(settings.volume)
             volume = settings.volume;
       }
-      
+
       var sd = this.clips[path];
       if(sd == null)
           return false;
       if(sd.l == false) return false;
-          
+
       var currentClip = this._context.createBufferSource(); // creates a sound source
       currentClip.buffer = sd.b;          // tell the source which sound to play
-      currentClip.gain.value = volume;
+      // currentClip.gain.value = volume;
       currentClip.connect(this._mainNode);
       currentClip.loop = looping;
-      currentClip.noteOn(0);              // play the source now
+      currentClip.start();              // play the source now
       return true;
     },
 
@@ -12978,7 +12976,7 @@ module.exports = function () {
 
 
 }
-},{}],18:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 // A rough sprite sheet!
 
 module.exports = function(assetManager) {
@@ -13100,4 +13098,4 @@ module.exports = function(assetManager) {
   }
 
 }
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18])
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17])
